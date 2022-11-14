@@ -1,14 +1,16 @@
-import { ThemeProvider } from "@emotion/react";
 import { BrowserRouter } from "react-router-dom";
+import { AppThemeProvider } from "./Shared/contexts/Theme.context";
 import { AppRoutes } from "./Routes";
-import { LightTheme } from "./Shared/themes";
+
 export const App = () =>{
   return (
-    <ThemeProvider theme={LightTheme}>
+    <AppThemeProvider themeName={"light"} toggleTheme={function (): void {
+      throw new Error("Function not implemented.");
+    } }>
       <BrowserRouter>
         <AppRoutes />
       </BrowserRouter>
-    </ThemeProvider>
+    </AppThemeProvider>
   );
 }
 
