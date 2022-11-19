@@ -1,10 +1,42 @@
+import { LabelImportant } from "@mui/icons-material";
 import { Avatar, Box, Divider, Drawer,Icon,List,ListItemButton,ListItemIcon,ListItemText,useMediaQuery,useTheme } from "@mui/material";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {useDrawerContext} from "../../contexts";
 
 interface globalMenuProps {
   children: React.ReactNode;
 }
+
+interface IlistItemLinkProps {
+  to: string;
+  icon: string;
+  label: string;
+  onClick: (() => void) | undefined;
+  
+
+}
+
+const ListItemLink: React.FC <IlistItemLinkProps> = ({to, icon, label, onClick}) => {
+ 
+  const navigate = useNavigate();
+
+
+  const handleClik = () => {
+    navigate(to);
+    onClick?.();
+
+  };
+  return (
+    <ListItemButton onClick={handleClik}>
+      <ListItemIcon>
+        <Icon>{icon}</Icon> 
+      </ListItemIcon>
+      <ListItemText primary={label} />
+    </ListItemButton>
+  );
+};
+
 export const MenuLateral: React.FC<globalMenuProps>=({children}) =>{
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));
@@ -27,12 +59,12 @@ export const MenuLateral: React.FC<globalMenuProps>=({children}) =>{
 
           <Box flex={1}>
             <List component="nav">
-              <ListItemButton>
-                <ListItemIcon>
-                  <Icon>home</Icon> 
-                </ListItemIcon>
-                <ListItemText primary="Pagina Inicial" />
-              </ListItemButton>
+              <ListItemLink
+                icon='home'
+                to= '/pagina-inicial'
+                label= 'Página inicial'
+                onClick={smDown ? toggleDrawerOpen : undefined}
+              />
 
             </List>
 
